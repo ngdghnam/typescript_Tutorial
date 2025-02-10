@@ -160,3 +160,16 @@ let nhanVien = new NhanVien(
 console.log(">>> Công Nhân:", congNhan);
 console.log(">>> Kỹ sư:", kySu);
 console.log(">>> Nhân viên:", nhanVien);
+
+const qlcb = new QLCB();
+
+// Thêm cán bộ vào danh sách
+qlcb.themMoiCanBo(congNhan);
+qlcb.themMoiCanBo(kySu);
+qlcb.themMoiCanBo(nhanVien);
+
+// Hiển thị danh sách cán bộ
+qlcb.hienThiDanhSach();
+
+// Tìm kiếm cán bộ theo tên
+qlcb.timKiemTheoTen("Nam");
