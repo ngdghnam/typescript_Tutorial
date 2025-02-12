@@ -1,9 +1,9 @@
 class CanBo {
-  public _age: number;
-  public _firstName: string;
-  public _lastName: string;
-  public _address: string;
-  public _gender: string;
+  private _age: number;
+  private _firstName: string;
+  private _lastName: string;
+  private _address: string;
+  private _gender: string;
 
   constructor(
     _age: number,
@@ -24,8 +24,12 @@ class CanBo {
   }
 
   get showFullInfo() {
-    let fullInfo = `${this.fullName} - ${this._age} - ${this._gender}`;
+    let fullInfo = `${this.fullName} - ${this._age} - ${this._gender} - ${this._address}`;
     return fullInfo;
+  }
+
+  get age() {
+    return this._age;
   }
 
   // Setters
@@ -39,11 +43,23 @@ class CanBo {
   set gender(newGender: string) {
     this._gender = newGender;
   }
+
+  set address(newAddress: string) {
+    this._address = newAddress;
+  }
+
+  set lastName(newLastName: string) {
+    this._lastName = newLastName;
+  }
+
+  set firstName(newFirstName: string) {
+    this._firstName = newFirstName;
+  }
 }
 
 // Cong Nhan
 class CongNhan extends CanBo {
-  public _level: number;
+  private _level: number;
 
   constructor(
     _age: number,
@@ -56,11 +72,22 @@ class CongNhan extends CanBo {
     super(_age, _firstName, _lastName, _address, _gender);
     this._level = _level;
   }
+
+  get showFullInfo() {
+    return `${super.showFullInfo} - ${this._level}`;
+  }
+
+  set level(newLevel: number) {
+    if (newLevel < 1 || newLevel > 10) {
+      throw Error("Invalid Level");
+    }
+    this._level = newLevel;
+  }
 }
 
 // Ky Sy
 class KySu extends CanBo {
-  public major: string;
+  private major: string;
 
   constructor(
     _age: number,
@@ -73,11 +100,15 @@ class KySu extends CanBo {
     super(_age, _firstName, _lastName, _address, _gender);
     this.major = major;
   }
+
+  get showFullInfo() {
+    return `${super.showFullInfo} - ${this.major}`;
+  }
 }
 
 // Nhan Vien
 class NhanVien extends CanBo {
-  public _job: string;
+  private _job: string;
 
   constructor(
     _age: number,
@@ -89,6 +120,10 @@ class NhanVien extends CanBo {
   ) {
     super(_age, _firstName, _lastName, _address, _gender);
     this._job = _job;
+  }
+
+  get showFullInfo() {
+    return `${super.showFullInfo} - ${this._job}`;
   }
 }
 
@@ -132,7 +167,7 @@ class QLCB {
 
 let congNhan = new CongNhan(
   20,
-  "Nam",
+  "Hoai",
   "Hoai",
   "81 Street 8, Ward 13, District 6",
   "Male",
@@ -141,7 +176,7 @@ let congNhan = new CongNhan(
 
 let kySu = new KySu(
   20,
-  "Nam",
+  "Hai",
   "Hoai",
   "81 Street 8, Ward 13, District 6",
   "Male",
@@ -150,26 +185,52 @@ let kySu = new KySu(
 
 let nhanVien = new NhanVien(
   20,
-  "Nam",
+  "Nhan",
   "Hoai",
   "81 Street 8, Ward 13, District 6",
   "Male",
   "Solution Architect"
 );
 
-console.log(">>> Công Nhân:", congNhan);
-console.log(">>> Kỹ sư:", kySu);
-console.log(">>> Nhân viên:", nhanVien);
+// console.log(">>> Công Nhân:", congNhan);
+// console.log(">>> Kỹ sư:", kySu);
+// console.log(">>> Nhân viên:", nhanVien);
 
-const qlcb = new QLCB();
+// const qlcb = new QLCB();
 
 // Thêm cán bộ vào danh sách
-qlcb.themMoiCanBo(congNhan);
-qlcb.themMoiCanBo(kySu);
-qlcb.themMoiCanBo(nhanVien);
+// qlcb.themMoiCanBo(congNhan);
+// qlcb.themMoiCanBo(kySu);
+// qlcb.themMoiCanBo(nhanVien);
 
 // Hiển thị danh sách cán bộ
-qlcb.hienThiDanhSach();
+// qlcb.hienThiDanhSach();
 
 // Tìm kiếm cán bộ theo tên
-qlcb.timKiemTheoTen("Nam");
+// qlcb.timKiemTheoTen("Nam");
+
+let kySu2 = new KySu(
+  20,
+  "Luong",
+  "Nguyen",
+  "Ward 113 District Thu Duc",
+  "Male",
+  "Data engineer"
+);
+
+console.log(">>> Age Ky Su 2 before changed: ", kySu2.age);
+
+let newKySu2Age = 35;
+kySu2.age = newKySu2Age;
+
+console.log(">>> Ky Su 2: ", kySu2.fullName);
+console.log(">>> Ky Su 2: ", kySu2.showFullInfo);
+console.log(">>> Age Ky Su 2 after changed: ", kySu2.age);
+
+export default {
+  CanBo,
+  CongNhan,
+  KySu,
+  NhanVien,
+  QLCB,
+};
